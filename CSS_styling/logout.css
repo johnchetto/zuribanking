@@ -1,0 +1,147 @@
+/* ===============================
+   ZURI ONLINE BANKING LOGOUT PAGE
+   =============================== */
+
+/* General Page Setup */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, #4b07eb, #08e049);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Logout Container */
+.logout-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logout Card */
+.logout-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 40px 60px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  max-width: 420px;
+  width: 90%;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Heading */
+.logout-card h1 {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Paragraph */
+.logout-card p {
+  font-size: 1em;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+}
+
+/* Buttons */
+.logout-card a {
+  display: inline-block;
+  background: #ffffff;
+  color: #003f88;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logout-card a:hover {
+  background: #f1f1f1;
+  transform: scale(0.97);
+}
+
+/* Login Again Button */
+.login-btn {
+  margin-bottom: 10px;
+}
+
+/* Support Link */
+.logout-card a:last-of-type {
+  background: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 40px 60px;
+  border-radius: 15px;
+  max-width: 380px;
+  width: 70%;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.logout-card a:last-of-type:hover {
+  color: #ffcc00;
+}
+
+/* Footer */
+.logout-footer {
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9em;
+  color: #d0d0d0;
+  opacity: 0.85;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+@media (max-width: 768px) {
+  .logout-card {
+    padding: 30px 25px;
+  }
+
+  .logout-card h1 {
+    font-size: 1.5em;
+  }
+
+  .logout-card p {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .logout-card {
+    width: 90%;
+    padding: 25px 20px;
+  }
+
+  .logout-card h1 {
+    font-size: 1.3em;
+  }
+
+  .logout-card a {
+    padding: 10px 18px;
+    font-size: 0.9em;
+  }
+}

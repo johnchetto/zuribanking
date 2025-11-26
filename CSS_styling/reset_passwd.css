@@ -1,0 +1,132 @@
+/* ========== General Page Style ========== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ========== Main Container ========== */
+.reset-wrapper {
+    width: 90%;
+    max-width: 950px;
+    background: #fff;
+    border-radius: 18px;
+    display: flex;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* ========== Left Panel (Illustration) ========== */
+.reset-left {
+    flex: 1;
+    background-color: #002e5b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.reset-left img {
+    width: 85%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* ========== Right Panel (Form Section) ========== */
+.reset-right {
+    flex: 1.2;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reset-right h2 {
+    color: #002e5b;
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.reset-right p {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* ========== Form Inputs ========== */
+.reset-right form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.reset-right label {
+    font-size: 14px;
+    color: #002e5b;
+    font-weight: 500;
+}
+
+.reset-right input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.reset-right input:focus {
+    border-color: #004aad;
+}
+
+/* ========== Button ========== */
+.reset-right button {
+    background-color: #004aad;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.reset-right button:hover {
+    background-color: #013b8b;
+}
+
+/* ========== Footer Link ========== */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #004aad;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #002e5b;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .reset-wrapper {
+        flex-direction: column;
+        max-width: 420px;
+    }
+
+    .reset-left {
+        display: none;
+    }
+
+    .reset-right {
+        padding: 30px 25px;
+    }
+}

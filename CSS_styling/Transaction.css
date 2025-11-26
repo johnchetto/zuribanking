@@ -1,0 +1,234 @@
+/* ---------------- Global & Variables ---------------- */
+:root{
+  --primary: #0056b3;
+  --accent: #007bff;
+  --bg: #f8fafc;
+  --card: rgba(255,255,255,0.85);
+  --glass-bg: rgba(255,255,255,0.55); /* fallback for non-backdrop browsers */
+  --text: #0f1724;
+  --muted: #6b7280;
+  --border: rgba(10,20,40,0.06);
+  --drawer-width: 340px;
+  --success: #28a745;
+  --pending: #ffc107;
+  --debit: #d9534f;
+  --credit: #1e7e34;
+}
+
+/* Reset / base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:"Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); margin:0; line-height:1.5; -webkit-font-smoothing:antialiased}
+
+/* ========== Flash message ========== */
+.flash-message { background-color: #1abc9c; color: white; padding: 12px 20px; border-radius: 8px; margin: 1rem auto; font-weight: 500; text-align: center; animation: fadeout 4s forwards; width:90%; max-width:900px; box-shadow:0 6px 18px rgba(26,188,156,0.12) }
+@keyframes fadeout { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; display: none; } }
+
+/* ========== Header / Navigation ========== */
+.main-nav{
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  padding:0.8rem 1.25rem;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+  position:relative;
+  z-index:50;
+
+}
+.nav-links li a {
+    text-decoration: none !important;
+}
+
+.nav-links li a:hover,
+.nav-links li a[aria-current="page"] {
+    text-decoration: none !important;
+}
+
+/* left area with brand and toggle */
+.nav-left{display:flex; align-items:center; gap:0.9rem}
+.brand{display:flex; flex-direction:column; color:#fff; text-decoration:none}
+.brand-title{font-weight:700; font-size:1rem; line-height:1}
+.brand-sub{font-size:0.75rem; opacity:0.95; margin-top:2px}
+
+/* hamburger toggle */
+.nav-toggle{
+  background:transparent;
+  border:0;
+  display:none; /* visible on tablet/phone via media query */
+  padding:0.35rem;
+  cursor:pointer;
+  color:#fff;
+}
+.hamburger{
+  display:inline-block;
+  width:22px; height:2px; background:#fff; position:relative;
+}
+.hamburger::before, .hamburger::after{
+  content:""; position:absolute; left:0; width:22px; height:2px; background:#fff;
+}
+.hamburger::before{top:-6px}
+.hamburger::after{top:6px}
+
+/* nav links (desktop) */
+.nav-links{display:flex; gap:1.2rem; list-style:none; margin:0; padding:0; align-items:center}
+.nav-links li a{
+  display:inline-block; padding:0.45rem 0.65rem; color:#fff; border-radius:6px; font-weight:600; font-size:0.95rem;
+}
+.nav-links li a:hover, .nav-links li a[aria-current="page"]{background:var(--accent);}
+
+/* small right area (notifications) */
+.nav-right{display:flex; align-items:center; gap:0.6rem}
+
+/* ========== Glass / Blur Drawer (slide-in left) ========== */
+/* container */
+.nav-drawer{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:var(--drawer-width);
+  max-width:86%;
+  background: var(--glass-bg);
+  color:var(--text);
+  transform:translateX(-120%);
+  transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .2s;
+  box-shadow: 2px 10px 40px rgba(8,15,30,0.18);
+  z-index:120;
+  display:flex;
+  flex-direction:column;
+  padding-bottom:2rem;
+  border-top-right-radius:14px;
+  border-bottom-right-radius:14px;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  overflow:auto;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* open state */
+.nav-drawer.open{ transform:translateX(0); }
+
+/* if browser doesn't support backdrop-filter, the semi-transparent background is fallback */
+/* header inside drawer */
+.drawer-header{display:flex; align-items:center; gap:0.75rem; padding:1rem; border-bottom:1px solid rgba(10,20,40,0.04)}
+.drawer-brand{font-size:1rem; font-weight:700}
+.drawer-sub{font-size:0.85rem; color:var(--muted)}
+.nav-close{background:transparent; border:0; font-size:1.6rem; line-height:1; cursor:pointer; color:var(--text)}
+
+/* drawer links */
+.drawer-nav{padding:0.6rem 0.6rem}
+.drawer-nav ul{list-style:none; margin:0; padding:0}
+.drawer-nav li{border-radius:10px; margin-bottom:0.35rem; overflow:hidden}
+.drawer-nav li a{
+  display:flex;
+  align-items:center;
+  gap:0.7rem;
+  padding:0.85rem 0.9rem;
+  color:var(--text);
+  border-radius:8px;
+  font-weight:600;
+  text-decoration:none;
+}
+.drawer-nav li a:hover{ background: rgba(255,255,255,0.08); }
+
+/* small subtle separators inside drawer */
+.drawer-nav hr { border: none; height:1px; background: rgba(10,20,40,0.03); margin:0.35rem 0; }
+
+/* overlay */
+.nav-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:110;
+}
+
+/* ========== Page Header ========== */
+.page-header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+.page-header h2 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+.page-header p { color: var(--muted); margin-top: 0.25rem; }
+
+/* ========== Transaction container & table ========== */
+.transaction-data{
+  width:85%;
+  max-width:1100px;
+  margin:1.6rem auto;
+  background:rgba(255,255,255,0.98);
+  border:1px solid rgba(10,20,40,0.04);
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(12,20,40,0.04);
+  padding:1rem;
+  overflow:hidden;
+}
+.transaction-data h3 { margin:0 0 0.6rem 0; color:var(--primary); font-size:1.12rem; }
+
+/* transaction table container handles horizontal scroll nicely */
+.transaction-table-container{width:100%; overflow:auto; -webkit-overflow-scrolling:touch}
+table{width:100%; border-collapse:collapse; min-width:650px}
+thead{background:#f1f5f9}
+th,td{padding:0.8rem 1rem; border-bottom:1px solid rgba(10,20,40,0.04); text-align:left; white-space:nowrap; font-size:0.925rem}
+th{font-weight:600}
+.amount-debit{color:var(--debit); font-weight:700}
+.amount-credit{color:var(--credit); font-weight:700}
+.status-success{color:var(--success); font-weight:600}
+.status-pending{color:var(--pending); font-weight:600}
+.status-failed{color:#d63a3a; font-weight:600}
+
+/* Delete button styling used by your markup */
+.delete-btn { color: var(--debit); text-decoration: none; font-weight: 600; }
+.delete-btn:hover { text-decoration: none; }
+
+/* ========== Footer ========== */
+footer{padding:1.2rem 0; text-align:center; color:#0056b3; font-size:0.9rem margin-top=280px;}
+
+/* ========== Responsive breakpoints ========== */
+
+/* Show hamburger & drawer on tablets and phones up to 1366px (per your request) */
+@media (max-width:1366px) {
+  .nav-toggle{display:inline-block}
+  .nav-links{display:none} /* hide full links - hamburger will open drawer */
+  .nav-right{display:flex}
+
+  .transaction-data{ width:92%; max-width:1100px; padding:0.9rem }
+  table{min-width:700px}
+}
+
+/* mobile narrow phones: tighten spacing */
+@media (max-width:480px) {
+  .brand-title{font-size:0.98rem}
+  .brand-sub{font-size:0.72rem}
+  .nav-toggle{padding:0.3rem}
+  .nav-drawer{width:86%}
+  table{min-width:560px; font-size:0.85rem}
+  th,td{padding:0.55rem 0.6rem}
+  .transaction-data{padding:0.6rem}
+}
+
+@media (max-width: 380px) {
+
+  .transaction-data {
+    width: 100%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+  }
+
+  .transaction-table-container table {
+    min-width: 420px;
+  }
+
+  table th, table td {
+    padding: 0.55rem 0.55rem;
+    font-size: 0.80rem;
+  }
+
+  .page-header h2 {
+    font-size: 1.4rem;
+  }
+}
+

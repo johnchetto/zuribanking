@@ -1,0 +1,44 @@
+2025-11-15 18:35:53 - Response: {
+            "access_token": "IQ5Hhzv81UY0AHcAnfFekMX4pyr9",
+            "expires_in": "3599"
+        }
+        
+2025-11-15 18:36:00 - Response: {
+            "access_token": "A8gdVXeAbVjXLqT4zvWPFeMMjEj6",
+            "expires_in": "3599"
+        }
+        
+2025-11-15 18:36:08 - Response: {
+            "access_token": "sAimsL09fK4UIJGDaaATGsalzSQe",
+            "expires_in": "3599"
+        }
+        
+2025-11-15 18:37:31 - Response: {
+            "access_token": "Ton5qjbwxoZWoPFAP8B0YAKfHAwi",
+            "expires_in": "3599"
+        }
+        
+2025-11-15 18:37:42 - Response: {
+            "access_token": "bCOsPQKuYFIhZnU9YjNKatiYT6Gk",
+            "expires_in": "3599"
+        }
+        
+2025-11-16 07:38:47 - cURL Error: Could not resolve host: sandbox.safaricom.co.ke
+2025-11-16 08:15:18 - cURL Error: Could not resolve host: sandbox.safaricom.co.ke
+2025-11-16 09:24:31 - cURL Error: Could not resolve host: sandbox.safaricom.co.ke
+2025-11-17 13:42:33 - Failed to get access token. Response: 
+2025-11-17 13:51:56 - Response: {
+            "access_token": "8cbgT4ukwCAG8O4CFdH0N2WNAhpA",
+            "expires_in": "3599"
+        }
+        
+2025-11-17 13:52:07 - Response: {
+            "access_token": "NAdDbQ0G46GlkyMB78g9vjBltqEC",
+            "expires_in": "3599"
+        }
+        
+2025-11-17 13:52:38 - Response: {
+            "access_token": "IKVtMTG3w23IkGuN31GCTeGEED6g",
+            "expires_in": "3599"
+        }
+        

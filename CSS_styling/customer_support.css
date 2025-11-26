@@ -1,0 +1,274 @@
+/* ===============================
+   ZURI BANK - CUSTOMER SUPPORT PAGE
+   Author: John Macharia
+   =============================== */
+
+/* --- Global Reset & Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f8fb;
+  color: #222;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Header & Navigation --- */
+header {
+  background-color: #004aad;
+  padding: 1.2rem 0;
+  color: white;
+  text-align: center;
+}
+
+header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+nav ul li a:hover {
+  background-color: #077c34; 
+  color: #ffffff;             
+  border-radius: 6px;          
+  transition: all 0.3s ease;
+  padding: 6px 12px;
+}
+
+
+
+/* --- Main Page Layout --- */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+/* --- Page Headers --- */
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h2 {
+  font-size: 2rem;
+  color: #004aad;
+  margin-bottom: 0.5rem;
+}
+
+/* --- FAQs Section --- */
+.quick-help {
+  background: #e9f2ff;
+  border-left: 2px solid #004aad;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.quick-help h3 {
+  color: #eaeef3;
+  margin-bottom: 1rem;
+  text-align: center;
+  border-left: 2px solid
+}
+
+.quick-help ul {
+  list-style: none;
+  text-align: center;
+}
+
+.quick-help li {
+  margin: 0.5rem 0;
+}
+
+.quick-help a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.quick-help a:hover {
+  text-decoration: underline;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-question.active {
+  background-color: #e6f0ff;
+  color: #004080;
+  font-weight: bold;
+}
+
+
+/* --- Contact Form Section --- */
+.contact-form-container {
+  margin-bottom: 2rem;
+}
+
+.contact-form-container header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.contact-form-container h3 {
+  color: #004aad;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.8rem;
+  border: none;
+  background-color: #004aad;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #007bff;
+}
+
+/* --- Direct Contact Section --- */
+.direct-contact {
+  background-color: #f0f4ff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.direct-contact h3 {
+  color: #e01212;
+  margin-bottom: 1rem;
+}
+
+.direct-contact a {
+  color: hsl(0, 92%, 38%);
+  text-decoration: none;
+  font-weight: 500;
+  text-align:center;
+}
+
+.direct-contact a:hover {
+  text-decoration: none;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #004aad;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 2px solid #007bff;
+}
+
+/* ===============================
+   MEDIA QUERIES
+   =============================== */
+
+/* --- Tablets (max-width: 768px) --- */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .page-header h2 {
+    font-size: 1.6rem;
+  }
+
+  form {
+    width: 100%;
+  }
+}
+
+/* --- Mobile Phones (max-width: 480px) --- */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .page-header p {
+    font-size: 0.95rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}

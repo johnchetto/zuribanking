@@ -1,0 +1,248 @@
+/* ===============================
+   Zuri Online Banking Admin Theme
+   Page: Transaction Logs
+   =============================== */
+
+/* ==== Global Styles ==== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #f4f8fb;
+    color: #222;
+    line-height: 1.6;
+}
+
+/* ==== Header ==== */
+header {
+    background-color: #004aad;
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: 1.8rem;
+}
+
+/* ==== Navigation Bar ==== */
+nav {
+    background-color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav h1 {
+    color: #004aad;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #004aad;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #077c34; 
+  color: #ffffff;             
+  border-radius: 6px;          
+  transition: all 0.3s ease;
+  padding: 6px 12px;
+}
+/* ==== Page Layout ==== */
+main {
+    width: 90%;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h2 {
+    color: #004aad;
+    margin-bottom: 0.5rem;
+}
+
+/* ==== Filter Controls ==== */
+.filter-controls {
+    margin: 2rem 0;
+    background-color: #f9fcff;
+    padding: 1rem;
+    border-left: 4px solid #004aad;
+    border-radius: 8px;
+}
+
+.filter-controls h3 {
+    margin-bottom: 1rem;
+    color: #f5f8fc;
+}
+
+.filter-controls form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+button {
+    background-color: #004aad;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: #00337a;
+}
+
+/* ==== Table Styling ==== */
+.table-container {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #004aad;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* ==== Log Notes ==== */
+.log-notes {
+    margin-top: 1rem;
+    background-color: #eaf3ff;
+    border-left: 5px solid #004aad;
+    padding: 1rem;
+    border-radius: 8px;
+    font-style: italic;
+}
+
+/* ==== Footer ==== */
+footer {
+    background-color: #004aad;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 3rem;
+    border-radius: 0 0 12px 12px;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN (Media Queries)
+   =============================== */
+
+/* For tablets and small laptops */
+@media (max-width: 992px) {
+    nav ul li {
+        display: inline-block;
+        margin: 8px;
+    }
+
+    main {
+        width: 95%;
+    }
+
+    .filter-controls form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 8px 0;
+    }
+
+    nav ul li a {
+        display: block;
+        background-color: #f0f4fa;
+        padding: 10px;
+        margin: 4px 0;
+        border-radius: 8px;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .filter-controls {
+        padding: 1rem 0.5rem;
+    }
+
+    .log-notes {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,142 @@
+/* ====== Base Reset ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ====== Body Styling ====== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+/* ====== Container ====== */
+.forgot-container {
+  display: flex;
+  width: 900px;
+  max-width: 95%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== Left Image Section ====== */
+.forgot-image {
+  flex: 1;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forgot-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ====== Form Section ====== */
+.forgot-form {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.forgot-form header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2575fc;
+}
+
+.forgot-form header p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* ====== Form ====== */
+.forgot-form main form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #2575fc;
+  outline: none;
+}
+
+/* ====== Submit Button ====== */
+button[type="submit"] {
+  padding: 12px;
+  background-color: #2575fc;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #6a11cb;
+}
+
+/* ====== Footer ====== */
+.forgot-form footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.forgot-form footer a {
+  color: #2575fc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.forgot-form footer a:hover {
+  color: #6a11cb;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .forgot-container {
+    flex-direction: column;
+  }
+
+  .forgot-image {
+    height: 200px;
+  }
+}

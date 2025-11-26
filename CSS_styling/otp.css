@@ -1,0 +1,161 @@
+/* ============================
+   ZURI ONLINE BANKING - OTP PAGE
+   Consistent with Login Page Theme
+   ============================ */
+
+/* Base reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Body layout */
+body {
+  background-color: #f4f7fb; /* same as login page */
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* OTP container */
+.otp-container {
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px 40px;
+  margin: 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.otp-container:hover {
+  transform: translateY(-3px);
+}
+
+/* Heading and paragraph */
+h1 {
+  font-size: 1.8em;
+  color: #003366; /* deep navy for trust */
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+p {
+  color: #555;
+  font-size: 0.95em;
+  margin-bottom: 20px;
+}
+
+/* OTP input */
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: 3px;
+  transition: all 0.2s ease;
+  background-color: #f9f9f9;
+}
+
+input[type="text"]:focus {
+  border-color: #0055a5;
+  box-shadow: 0 0 4px rgba(0, 85, 165, 0.4);
+  outline: none;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button[name="verify_otp"] {
+  background-color: #003366;
+  color: white;
+  font-weight: 600;
+}
+
+button[name="verify_otp"]:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+button[name="verify_otp"]:hover:enabled {
+  background-color: #0055a5;
+  transform: translateY(-2px);
+}
+
+button[name="resend_otp"] {
+  background-color: #e6e9f0;
+  color: #003366;
+  font-weight: 500;
+}
+
+button[name="resend_otp"]:hover {
+  background-color: #d8deeb;
+}
+
+/* Error message */
+.error {
+  color: #b71c1c;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+/* Timer */
+#timer {
+  color: #003366;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+/* Link */
+a {
+  color: #0055a5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.85em;
+  color: #666;
+  margin-top: auto;
+  padding: 15px 0;
+  background: #f1f4f8;
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .otp-container {
+    margin: 40px 20px;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  button {
+    font-size: 0.95em;
+  }
+}

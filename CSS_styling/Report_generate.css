@@ -1,0 +1,265 @@
+/* ================================
+   GLOBAL RESET & BASE STYLES
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  color: #222;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ================================
+   HEADER
+================================ */
+header {
+  text-align: center;
+  background-color: #0b3d91;
+  color: #fff;
+  padding: 1.8rem 0;
+  border-bottom: 4px solid #1565c0;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* ================================
+   NAVIGATION BAR
+================================ */
+nav[aria-label="Admin Panel Navigation"] {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem auto;
+  width: 95%;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+}
+
+nav[aria-label="Main Banking Navigation"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Left-aligned title */
+nav[aria-label="Main Banking Navigation"] h1 {
+  font-size: 1.4rem;
+  color: #0b3d91;
+  font-weight: 700;
+}
+
+/* Centered navigation links */
+nav[aria-label="Main Banking Navigation"] ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+nav[aria-label="Main Banking Navigation"] ul li a {
+  text-decoration: none;
+  color: #0b3d91;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #077c34; 
+  color: #ffffff;             
+  border-radius: 6px;          
+  transition: 0.1s ease;
+  padding: 6px 12px;
+}
+/* ================================
+   MAIN SECTION
+================================ */
+main {
+  width: 90%;
+  margin: 2rem auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.page-header h2 {
+  font-size: 1.6rem;
+  color: #0b3d91;
+  margin-bottom: 0.3rem;
+}
+
+.page-header p {
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* ================================
+   FORM STYLING
+================================ */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #0b3d91;
+  outline: none;
+}
+
+/* Button */
+#generate-report-btn {
+  grid-column: 1 / -1;
+  background-color: #0b3d91;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#generate-report-btn:hover {
+  background-color: #1565c0;
+}
+
+/* ================================
+   TABLE STYLING
+================================ */
+.report-table-container {
+  overflow-x: auto;
+}
+
+.report-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.report-table-container th,
+.report-table-container td {
+  padding: 0.9rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.report-table-container th {
+  background-color: #0b3d91;
+  color: white;
+  font-weight: 600;
+}
+
+.report-table-container tr:nth-child(even) {
+  background-color: #f4f6f9;
+}
+
+.report-table-container a {
+  color: #0b3d91;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.report-table-container a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  text-align: center;
+  padding: 1.2rem;
+  color: #555;
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border-top: 2px solid #e5e5e5;
+}
+
+/* ================================
+   RESPONSIVE MEDIA QUERIES
+================================ */
+
+/* Medium screens - Tablets */
+@media (max-width: 992px) {
+  nav[aria-label="Main Banking Navigation"] {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  nav[aria-label="Main Banking Navigation"] ul {
+    justify-content: center;
+  }
+
+  main {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .page-header h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Small screens - Mobile */
+@media (max-width: 600px) {
+  nav[aria-label="Main Banking Navigation"] h1 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  nav[aria-label="Main Banking Navigation"] ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  #generate-report-btn {
+    width: 100%;
+  }
+
+  .report-table-container th,
+  .report-table-container td {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,552 @@
+/* GLOBAL FIXES */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ------------------------ */
+/* MAIN STYLES (unchanged) */
+/* ------------------------ */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f7f8fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🔹 Top Navbar */
+.topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0f3460;
+    color: #fff;
+    padding: 15px 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topnav h2 {
+    margin: 0;
+    font-size: 22px;
+    text-align: left;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;                   
+}
+
+.nav-links a:hover {
+    color: #1abc9c;
+}
+
+.menu-toggle {
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    background: none;
+    display: none;
+}
+
+/* 🔹 Sidebar */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0f3460;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+    z-index: 999;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 25px;
+    text-decoration: none;
+    color: #ddd;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #16213e;
+    color: #fff;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* 🔹 Main Content */
+.main {
+    margin-top: 90px;
+    padding: 30px;
+    flex-grow: 1;
+    transition: margin-left 0.4s;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.welcome {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0f3460;
+}
+
+.balance-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.balance {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1abc9c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+table th {
+    background-color: #0f3460;
+    color: #fff;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.status.success { color: green; }
+.status.failed { color: red; }   /* ← fixed missing dot */
+.status.pending { color: orange; }
+
+/* 🔹 Footer */
+footer {
+    background-color: #0f3460;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: auto;
+    width: 100%;
+}
+
+/* ------------------------ */
+/* 🔹 RESPONSIVE FIXES */
+/* ------------------------ */
+
+/* Hide nav links on smaller screens */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Fix layout on small phones */
+@media (max-width: 480px) {
+
+    .topnav {
+        padding: 12px 15px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .welcome {
+        font-size: 18px;
+    }
+
+    .balance {
+        font-size: 22px;
+    }
+
+    .balance-box {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+}
+
+/* ------------------------ */
+/* 🔹 iPad / Tablet Fixes */
+/* ------------------------ */
+
+@media (min-width: 768px) and (max-width: 1366px) {
+
+    body {
+        font-size: 18px;
+    }
+
+    .topnav h2 {
+        font-size: 26px;
+    }
+
+    .nav-links a {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 25px;
+    }/* GLOBAL FIXES */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ------------------------ */
+/* MAIN STYLES (unchanged) */
+/* ------------------------ */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f7f8fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🔹 Top Navbar */
+.topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0f3460;
+    color: #fff;
+    padding: 15px 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topnav h2 {
+    margin: 0;
+    font-size: 22px;
+    text-align: left;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;                   
+}
+
+.nav-links a:hover {
+    color: #1abc9c;
+}
+
+.menu-toggle {
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    background: none;
+    display: none;
+}
+
+/* 🔹 Sidebar */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0f3460;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+    z-index: 999;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 25px;
+    text-decoration: none;
+    color: #ddd;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #16213e;
+    color: #fff;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* 🔹 Main Content */
+.main {
+    margin-top: 90px;
+    padding: 30px;
+    flex-grow: 1;
+    transition: margin-left 0.4s;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.welcome {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0f3460;
+}
+
+.balance-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.balance {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1abc9c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+table th {
+    background-color: #0f3460;
+    color: #fff;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.status.success { color: green; }
+.status.failed { color: red; }   /* ← fixed missing dot */
+.status.pending { color: orange; }
+
+/* 🔹 Footer */
+footer {
+    background-color: #0f3460;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: auto;
+    width: 100%;
+}
+
+/* ------------------------ */
+/* 🔹 RESPONSIVE FIXES */
+/* ------------------------ */
+
+/* Hide nav links on smaller screens */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Fix layout on small phones */
+@media (max-width: 480px) {
+
+    .topnav {
+        padding: 12px 15px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .welcome {
+        font-size: 18px;
+    }
+
+    .balance {
+        font-size: 22px;
+    }
+
+    .balance-box {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+}
+
+/* ------------------------ */
+/* 🔹 iPad / Tablet Fixes */
+/* ------------------------ */
+
+@media (min-width: 768px) and (max-width: 1366px) {
+
+    body {
+        font-size: 18px;
+    }
+
+    .topnav h2 {
+        font-size: 26px;
+    }
+
+    .nav-links a {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .welcome {
+        font-size: 26px;
+    }
+
+    .balance {
+        font-size: 30px;
+    }
+
+    table th, table td {
+        font-size: 18px;
+        padding: 14px 18px;
+    }
+}
+
+
+    .welcome {
+        font-size: 26px;
+    }
+
+    .balance {
+        font-size: 30px;
+    }
+
+    table th, table td {
+        font-size: 18px;
+        padding: 14px 18px;
+    }
+}

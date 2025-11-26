@@ -1,0 +1,350 @@
+/* ===============================
+   ZURI ONLINE BANK - PROFILE PAGE
+   =============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #f4f8fb;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header Navigation --- */
+header {
+  background: #003366;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align:left;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: #00aaff;
+}
+
+/* --- Main Profile Section --- */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.profile-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #003366;
+}
+
+.success {
+  background: #dff0d8;
+  color: #3c763d;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.error {
+  background: #f2dede;
+  color: #a94442;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* --- Profile Container --- */
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #00aaff;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h3 {
+  font-size: 1.5rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+/* --- Update Form --- */
+form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+form h3 {
+  color: #003366;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #00aaff;
+  display: inline-block;
+  padding-bottom: 0.2rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: #003366;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00aaff;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-image img {
+    width: 120px;
+    height: 120px;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+}
+
+/* --- Footer --- */
+footer {
+  background: #003366;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+}
+/* =============================
+   PROFILE SECTION
+============================= */
+.profile-section {
+    max-width: 850px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.profile-container {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 160px;
+    height: 160px;
+    position: relative;
+}
+
+.profile-image img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    object-fit: cover;
+}
+
+.profile-image span {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: #007bff;
+    color: #fff;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-info h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.profile-info p {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+/* ==========================
+   FORM STYLE
+========================== */
+form label {
+    font-size: 15px;
+    margin-top: 12px;
+    display: block;
+}
+
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 18px;
+    padding: 12px 25px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.success {
+    color: green;
+    margin-bottom: 12px;
+}
+.error {
+    color: red;
+    margin-bottom: 12px;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 600px) {
+    .profile-image {
+        margin: auto;
+    }
+    .profile-info {
+        text-align: center;
+    }
+}
+/* FORCE NAV LINKS VERTICAL ON SMALL PHONES */
+@media (max-width: 480px) {
+
+  nav ul {
+    flex-direction: column !important;
+    width: 100%;
+    text-align: left;
+    gap: 0.5rem;
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+  }
+}

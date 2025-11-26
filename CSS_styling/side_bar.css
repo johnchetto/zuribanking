@@ -1,0 +1,119 @@
+/* Sidebar styling */
+#sidebar {
+    position: fixed;
+    left: -260px; /* Hidden by default */
+    top: 0;
+    width: 260px;
+    height: 100%;
+    background-color: #004080;
+    color: #fff;
+    padding: 1rem 1rem 3rem 1rem;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+/* Sidebar visible state */
+#sidebar.show {
+    left: 0;
+}
+
+/* Sidebar menu */
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1; /* Takes remaining vertical space */
+}
+
+#sidebar ul li a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+#sidebar ul li a:hover {
+    background-color: #0066cc;
+}
+
+/* Dropdown menu */
+.dropdown-content {
+    display: none;
+    list-style: none;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.dropdown-content li a {
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+/* Logout button pinned at bottom */
+.logout-btn {
+    display: block;
+    background-color: #d9534f;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: auto; /* pushes it to bottom */
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #c9302c;
+}
+
+/* Sidebar toggle button */
+#sidebarToggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1100;
+    font-size: 1.1rem;
+}
+
+#sidebarToggle:hover {
+    background-color: #0066cc;
+}
+
+/* Optional: scrollbar styling */
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+/* Responsive for smaller screens */
+@media screen and (max-width: 768px) {
+    #sidebar {
+        width: 220px;
+    }
+
+    #sidebarToggle {
+        top: 5px;
+        left: 5px;
+    }
+}
