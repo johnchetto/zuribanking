@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'db_connect.php';
 
 // Function to generate a unique account number
@@ -16,7 +17,6 @@ function generateAccountNumber($conn) {
 }
 
 // Initialize variables for messages
-$success_message = '';
 $errors = [
     'first_name' => '',
     'last_name' => '',
@@ -48,57 +48,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $new_user_name = $input_values['first_name'] . ' ' . $input_values['last_name'];
 
     // Validate fields individually
-    if (empty($input_values['first_name'])) {
-        $errors['first_name'] = "First Name field is required.";
-    }
-
-    if (empty($input_values['last_name'])) {
-        $errors['last_name'] = "Last Name field is required.";
-    }
-
+    if (empty($input_values['first_name'])) $errors['first_name'] = "First Name field is required.";
+    if (empty($input_values['last_name'])) $errors['last_name'] = "Last Name field is required.";
     if (empty($input_values['email'])) {
         $errors['email'] = "Email field is required.";
-    } elseif (strpos($input_values['email'], '@') === false || !filter_var($input_values['email'], FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var($input_values['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Invalid email format!";
     }
-
-    if (empty($input_values['phone_number'])) {
-        $errors['phone_number'] = "Phone Number field is required.";
-    }
-
+    if (empty($input_values['phone_number'])) $errors['phone_number'] = "Phone Number field is required.";
     if (empty($password)) {
         $errors['password'] = "Password field is required.";
     } elseif (strlen($password) < 8) {
         $errors['password'] = "Password must be at least 8 characters long.";
     }
-
-    if ($password !== $confirm_password) {
-        $errors['confirm_password'] = "Passwords do not match!";
-    }
+    if ($password !== $confirm_password) $errors['confirm_password'] = "Passwords do not match!";
 
     // If no errors, proceed to DB insertion
     if (!array_filter($errors)) {
-        $conn = new mysqli("localhost", "root", "", "bull_db");
+
+        // Use your db_connect.php connection ($conn)
         if ($conn->connect_error) {
-            $success_message = "Database connection failed!";
+            $_SESSION['error_message'] = "Database connection failed!";
         } else {
             // Check duplicate email
             $check_email = $conn->prepare("SELECT id FROM users WHERE email = ?");
             $check_email->bind_param("s", $input_values['email']);
             $check_email->execute();
             $check_email->store_result();
-            if ($check_email->num_rows > 0) {
-                $errors['email'] = "Email is already registered!";
-            }
+            if ($check_email->num_rows > 0) $errors['email'] = "Email is already registered!";
 
             // Check duplicate phone
             $check_phone = $conn->prepare("SELECT id FROM users WHERE phone_number = ?");
             $check_phone->bind_param("s", $input_values['phone_number']);
             $check_phone->execute();
             $check_phone->store_result();
-            if ($check_phone->num_rows > 0) {
-                $errors['phone_number'] = "Phone Number is already registered!";
-            }
+            if ($check_phone->num_rows > 0) $errors['phone_number'] = "Phone Number is already registered!";
 
             // If still no errors, insert user
             if (!array_filter($errors)) {
@@ -117,39 +101,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 );
 
                 if ($stmt->execute()) {
-                    $success_message = "Account created successfully! Redirecting to login page...";
-                    header("refresh:5;url=login.php"); // redirect after 5 seconds
-                    // Clear form fields
-                    $input_values = ['first_name'=>'','last_name'=>'','email'=>'','phone_number'=>''];
-
-                    // ✅ Insert notification for admins *after successful registration*
-                    $title = "New User Registered";
-                    $message = "$new_user_name has just signed up!";
-                    $type = "signup";
-                    $role_target = "admin";
-
-                    $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, title, message, type, role_target) VALUES (NULL, ?, ?, ?, ?)");
-                    $notif_stmt->bind_param("ssss", $title, $message, $type, $role_target);
-                    $notif_stmt->execute();
-                    $notif_stmt->close();
+                    // ✅ Store success message in session and redirect immediately
+                    $_SESSION['success_message'] = "Account created successfully! Please log in.";
+                    header("Location: login.php");
+                    exit();
                 } else {
-                    $success_message = "Error while saving user. Please try again.";
+                    $_SESSION['error_message'] = "Error while saving user. Please try again.";
                 }
-
                 $stmt->close();
             }
 
             $check_email->close();
             $check_phone->close();
-
-            // Optional: another notification example
-            $title = "New Customer Registration";
-            $message = "A new customer ($new_user_name) has registered.";
-            $role_target = "admin";
-            $conn->query("INSERT INTO notifications (title, message, role_target) VALUES ('$title', '$message', '$role_target')");
-
-            $conn->close();
         }
+
+        // Optional: Notifications for admin
+        $title = "New Customer Registration";
+        $message = "A new customer ($new_user_name) has registered.";
+        $role_target = "admin";
+        $conn->query("INSERT INTO notifications (title, message, role_target) VALUES ('$title', '$message', '$role_target')");
+
+        $conn->close();
     }
 }
 ?>
@@ -175,7 +147,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     border: 1px solid #c3e6cb;
     border-radius: 5px;
 }
-
 /* Field error styles */
 .error {
     color: red;
@@ -197,9 +168,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h1>Account Registration</h1>
             <p>To sign up, kindly fill the form below.</p>
 
-            <!-- Success message -->
-            <?php if (!empty($success_message)) : ?>
-                <div class="form-message"><?php echo $success_message; ?></div>
+            <!-- Display error message from session -->
+            <?php if (isset($_SESSION['error_message'])): ?>
+                <div class="form-message" style="color:red;background-color:#f8d7da;border-color:#f5c6cb;">
+                    <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                </div>
             <?php endif; ?>
         </header>
 
@@ -239,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required />
                 <span class="error"><?php echo $errors['confirm_password']; ?></span>
             </div>
-
+          
             <button type="submit">Register Account</button>
         </form>
 
