@@ -10,7 +10,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     $servername = "sql301.infinityfree.com"; // MySQL Hostname
     $username = "if0_40529650";              // MySQL Username
     $password = "vmExSN4mvii1"; // MySQL Password
-    $dbname = "if0_40529650_XXX";             // MySQL Database Name
+    $dbname = "if0_40529650_bull";             // MySQL Database Name
 }
 /*  connection*/
 $conn = new mysqli($servername, $username, $password, $dbname);
