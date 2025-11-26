@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bull_db"; // updated database name
+$servername = "sql100.infinityfree.com";
+$username = "if0_40527894";
+$password = "j1QRqytZ4nhUm";
+$dbname = "if0_40527894_XXX"; // updated database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

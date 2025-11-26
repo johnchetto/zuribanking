@@ -26,7 +26,7 @@ function generateAccountNumber() {
     return prefix + randomDigits; // Example: 0112345678
 }
 
-// ✅ Handle Approve Button Click
+//  Handle Approve Button Click
 approveButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
         const row = event.target.closest("tr");
