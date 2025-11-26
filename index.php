@@ -1,149 +1,262 @@
 <?php
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
-require_once "db_connect.php"; // Make sure this connects to your database
-require_once 'log_action.php';
-
-// Initialize error messages
-$errors = ['email' => '', 'password' => ''];
-$email_value = '';
-
-// Process form submission
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email_value = trim($_POST['Email']);
-    $password = $_POST['password'];
-
-    // Basic validation
-    if (empty($email_value)) $errors['email'] = "Email field is required.";
-    if (empty($password)) $errors['password'] = "Password field is required.";
-
-    // Only proceed if there are no errors
-    if (!array_filter($errors)) {
-
-        // 1️⃣ Check if user exists in the admins table first
-        $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
-        $stmt->bind_param("s", $email_value);
-        $stmt->execute();
-        $result_admin = $stmt->get_result();
-
-        if ($result_admin->num_rows === 1) {
-            $admin = $result_admin->fetch_assoc();
-
-            // Verify admin password
-            if (password_verify($password, $admin['password_hash'])) {
-                // ✅ Admin login successful - bypass OTP
-                $_SESSION['admin_id'] = $admin['admin_id'];
-                $_SESSION['email'] = $admin['email'];
-                $_SESSION['role'] = $admin['role'];
-                $_SESSION['first_name'] = $admin['first_name'];
-                $_SESSION['last_name'] = $admin['last_name'];
-
-                // ---------------------------
-                // Log Admin Login
-                // ---------------------------
-                logAction($conn, $admin['admin_id'], 'admin', 'Login', 'Admin logged in successfully.');
-
-                // Redirect to Admin Dashboard
-                header("Location: Admin_dashboard.php");
-                exit;
-            } else {
-                $errors['password'] = "Incorrect password!";
-            }
-
-        } else {
-            // 2️⃣ Not an admin, check users table
-            $stmt_user = $conn->prepare("SELECT * FROM users WHERE email = ?");
-            $stmt_user->bind_param("s", $email_value);
-            $stmt_user->execute();
-            $result_user = $stmt_user->get_result();
-
-            if ($result_user->num_rows === 1) {
-                $user = $result_user->fetch_assoc();
-
-                // Verify customer password
-                if (password_verify($password, $user['password'])) {
-                    // ✅ Customer login: generate OTP
-                    $_SESSION['otp'] = rand(100000, 999999);
-                    $_SESSION['otp_time'] = time();
-                    $_SESSION['pending_login_email'] = $user['email'];
-                    $_SESSION['pending_user_firstname'] = $user['first_name'];
-                    $_SESSION['pending_user_id'] = $user['id']; // Needed for dashboard
-
-                    // --- ADDITION: also set session for user_id for transactions ---
-                    $_SESSION['user_id'] = $user['id']; // THIS LINE ENSURES transactions can be fetched
-                    $_SESSION['email'] = $user['email']; 
-                    $_SESSION['first_name'] = $user['first_name'];
-
-                    // ---------------------------
-                    // Log Customer Login
-                    // ---------------------------
-                    logAction($conn, $user['id'], 'customer', 'Login', 'User logged in successfully.');
-
-                    // Redirect to OTP page
-                    header("Location: otp.php");
-                    exit;
-                } else {
-                    $errors['password'] = "Incorrect password!";
-                }
-            } else {
-                $errors['email'] = "No account found with that email!";
-            }
-
-            $stmt_user->close();
-        }
-
-        $stmt->close();
-        $conn->close();
+include 'db_connect.php';
+$images = [];
+$result = $conn->query("SELECT image_path, caption FROM images");
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $images[] = $row;
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="CSS_styling/login.css">
-<title>Zuri Online Banking Login</title>
-<style>
-/* Inline error styling */
-.error { color: red; font-size: 0.9em; margin-top: 3px; display: block; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS_styling/landing.css">
+    <style>
+  /* ✅ Container spans full width but remains elegant */
+/* Full-width slider */
+.slider {
+  width: 100vw; /* full viewport width */
+  max-width: 100%; /* never exceed screen width */
+  height: 60vh; /* adjust height */
+  max-height: 500px;
+  min-height: 300px;
+  overflow: hidden;
+  position: relative;
+  margin: 0; /* remove extra margins */
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cover entire container */
+  display: block;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Caption styling */
+#slider-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: #fff;
+  padding: 15px 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Fade animation */
+#slider-image.fade-out,
+#slider-caption.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .slider {
+    height: 40vh;
+  }
+
+  #slider-caption {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #slider-caption {
+    font-size: 0.9rem;
+  }
+}
+
 </style>
-</head>
-<body>
-<div class="login-container">
-    <div class="login-image">
-        <img src="img/UI_LOGIN-01.png" alt="Login Interface">
-    </div>
-    <div class="login-form">
-        <header>
-            <h1>Zuri Online Banking Login</h1>
-            <p>Please fill in your details to log in.</p>
-        </header>
-        <main>
-            <form action="login.php" method="POST">
-                <div class="form-group">
-                    <label for="Email">Email</label>
-                    <input type="text" id="Email" name="Email" value="<?php echo htmlspecialchars($email_value); ?>" placeholder="Enter your Email">
-                    <span class="error"><?php echo $errors['email']; ?></span>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your Password">
-                    <span class="error"><?php echo $errors['password']; ?></span>
-                </div>
-                <a href="forgot_passwd.php">Forgot Password?</a>
-                <br><br>
-                <button type="submit">Sign In</button>
-            </form>
-        </main>
-        <footer>
-            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
-        </footer>
-    </div>
+
+  </head>
+
+  <body>
+    <header role="banner" class="site-header">
+      <nav aria-label="Utility Navigation">
+        <p class="badge-text">Secure &middot; Fast &middot; Reliable</p>
+      </nav>
+    </header>
+
+    <main role="main" class="hero-section">
+      <section class="hero-content" aria-labelledby="main-heading">
+        <h1 id="main-heading">
+          Welcome to Zuri Online Banking
+          <span class="highlight">Management</span> System
+        </h1>
+
+        <p class="description">
+          Experience seamless Zuri online banking management with real-time
+          tracking, smart automation and secure access.
+        </p>
+
+        <!-- ✅ Image Slider -->
+<div class="slider">
+  <?php if (!empty($images)): ?>
+      <img id="slider-image" 
+           src="<?php echo htmlspecialchars($images[0]['image_path']); ?>" 
+           alt="<?php echo htmlspecialchars($images[0]['caption']); ?>">
+      <p id="slider-caption"><?php echo htmlspecialchars($images[0]['caption']); ?></p>
+  <?php else: ?>
+      <img id="slider-image" src="images/placeholder.jpg" alt="No images available">
+      <p id="slider-caption">No images to display</p>
+  <?php endif; ?>
 </div>
-</body>
+
+<!-- ⭐ ADD THE HAPPY USERS SECTION RIGHT HERE -->
+<section class="happy-users">
+    <h2 class="section-title">What Our Users Are Saying</h2>
+
+    <div class="users-row">
+
+        <div class="user-card">
+            <img src="img/user1.jpg" alt="Happy rural user 1">
+            <p>Zuri Online Banking will make saving and sending money easier even from my rural home.</p>
+        </div>
+
+        <div class="user-card">
+            <img src="img/user2.jpg" alt="Happy rural user 2">
+            <p>My business will grow because payments will now be fast and secure with Zuri</p>
+        </div>
+
+        <div class="user-card">
+            <img src="img/user3.jpg" alt="Happy rural user 3">
+            <p>Finally digital banking has reached us. Zuri gives me freedom and convenience.</p>
+        </div>
+
+    </div>
+</section>
+
+        <div class="call-to-action-group">
+          <a href="signup.php">Get Started</a>
+          <a href="login.php">Sign In</a>
+        </div>
+      </section>
+      <br><br>
+
+      <!-- ✅ Features Section -->
+      <section role="region" class="feature-layout">
+        <div class="feature-grid" aria-label="Zuri Banking Features">
+          <h2 style="color: red;">Core Features Overview</h2>
+
+          <article class="feature-card">
+            <h3>Two-Factor Authentication</h3>
+            <p>
+              Advanced security with OTP verification to protect your account
+              from unauthorized access.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <!-- Fixed invalid tag -->
+            <h3 style="color: red;">Instant Transfers</h3>
+            <p>
+              Move your money instantly between accounts with zero delays, 24/7.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>Bank-Level Security</h3>
+            <p>
+              Your data is protected by military-grade encryption and constant
+              fraud monitoring.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>User-Friendly Interface</h3>
+            <p>
+              A clean, intuitive design makes managing your finances simple on
+              any device.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>Transaction Tracking</h3>
+            <p>
+              Monitor and categorize every transaction in real-time for better
+              budgeting.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>24/7 Accessibility</h3>
+            <p>
+              Manage your bank accounts anytime, anywhere, across all devices.
+            </p>
+          </article>
+        </div>
+
+        <div class="cta-section">
+          <h1>Ready to Get Started?</h1>
+          <p>
+            Join thousands of users who trust Zuri for their online banking
+            needs. Create your account today and experience the future of
+            banking.
+          </p>
+          <a href="signup.php">Create Your Account</a>
+        </div>
+      </section>
+    </main>
+    <section id="about-hero">
+    <div class="hero-container">
+        <h2>About Us</h2>
+        <p>
+            Zuri Online Banking Management System provides fast, secure, and reliable access to your financial services. 
+            We simplify online banking with modern digital tools, ensuring a smooth experience across all devices.
+        </p>
+    </div>
+
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p><strong>Phone:</strong> 0791575532</p>
+        <a href="https://wa.me/254791575532" target="_blank" class="whatsapp-link">
+            <img src="img/whatsapp.jpg" alt="WhatsApp"> Chat on WhatsApp
+        </a>
+    </div>
+</section>
+
+
+    <footer>
+      <p>
+        &copy; 2025 Zuri Online Banking Management System | All Rights Reserved.
+      </p>
+    </footer>
+
+    <script>
+      let images = <?php echo json_encode($images); ?>;
+      if (images.length > 0) {
+          let index = 0;
+          const imageTag = document.getElementById('slider-image');
+          const captionTag = document.getElementById('slider-caption');
+
+          setInterval(() => {
+              // fade out
+              imageTag.classList.add('fade-out');
+              captionTag.classList.add('fade-out');
+
+              setTimeout(() => {
+                  index = (index + 1) % images.length;
+                  imageTag.src = images[index].image_path;
+                  captionTag.textContent = images[index].caption;
+
+                  // fade in
+                  imageTag.classList.remove('fade-out');
+                  captionTag.classList.remove('fade-out');
+              }, 1000); // must match CSS transition time
+          }, 4000); // 4 seconds per slide
+      }
+    </script>
+
+  </body>
 </html>
