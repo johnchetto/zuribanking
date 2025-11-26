@@ -1,4 +1,8 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 require_once "db_connect.php"; // Make sure this connects to your database
 require_once 'log_action.php';
