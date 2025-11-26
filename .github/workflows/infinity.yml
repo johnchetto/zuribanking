@@ -1,4 +1,4 @@
-name: 🚀 Deploy to zurionlinebanking.infinityfree.me
+name: 🚀 Deploy to onlinebanking.kesug.com
 
 on:
   workflow_dispatch: # Uncomment below to deploy on push instead
@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: 🎉 Deploy to zurionlinebanking.infinityfree.me
+    name: 🎉 Deploy to onlinebanking.kesug.com
     runs-on: ubuntu-latest
 
     steps:
