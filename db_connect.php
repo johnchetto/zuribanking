@@ -4,7 +4,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "zuri_db"; // your local DB
+    $dbname = "bull_db"; // your local DB
 } else {
     // InfinityFree live server
     $servername = "sql100.infinityfree.com";
