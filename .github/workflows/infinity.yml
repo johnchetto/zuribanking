@@ -1,4 +1,4 @@
-name: 🚀 zurionlinebanking.infinityfree.me
+name: 🚀 Deploy to zurionlinebanking.infinityfree.me
 
 on:
   workflow_dispatch: # Uncomment below to deploy on push instead
