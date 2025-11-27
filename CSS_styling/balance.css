@@ -180,3 +180,103 @@ footer {
     }
 }
 
+/* =======================
+   ZURI BANK RESPONSIVE NAV
+   ======================= */
+
+/* HEADER BAR */
+.top-nav {
+    background: linear-gradient(90deg, #0A2342, #002855);
+    padding: 12px 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Hamburger (phone only) */
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+
+/* NAV LINKS (DESKTOP by default) */
+.nav-links {
+    list-style: none;
+    display: flex; 
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #00d4ff;
+}
+
+/* Notification always visible */
+.notification-area {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE BEHAVIOR
+   =============================== */
+@media (max-width: 768px) {
+
+    /* Show hamburger on mobile */
+    .menu-btn {
+        display: block;
+    }
+
+    /* Hide nav links initially on mobile */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #002244;
+        width: 100%;
+        padding: 15px 0;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 1000;
+        text-align: left;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Show dropdown when toggled by JS */
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 12px 20px;
+    }
+
+    .notification-area {
+        position: absolute;
+        right: 20px;
+        top: 12px;
+    }
+}
