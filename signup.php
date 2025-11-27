@@ -34,6 +34,8 @@ $input_values = [
     'phone_number' => ''
 ];
 
+$success_message = ''; // <-- added for success display
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Collect and sanitize inputs
@@ -101,10 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 );
 
                 if ($stmt->execute()) {
-                    // ✅ Store success message in session and redirect immediately
-                    $_SESSION['success_message'] = "Account created successfully! Please log in.";
-                    header("Location: login.php");
-                    exit();
+                    // ✅ Display success message and delayed redirect
+                    $success_message = "Account created successfully! Please wait, redirecting to login page...";
                 } else {
                     $_SESSION['error_message'] = "Error while saving user. Please try again.";
                 }
@@ -168,11 +168,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h1>Account Registration</h1>
             <p>To sign up, kindly fill the form below.</p>
 
-            <!-- Display error message from session -->
+            <!-- Display session error message -->
             <?php if (isset($_SESSION['error_message'])): ?>
                 <div class="form-message" style="color:red;background-color:#f8d7da;border-color:#f5c6cb;">
                     <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
                 </div>
+            <?php endif; ?>
+
+            <!-- Display success message and delayed redirect -->
+            <?php if (!empty($success_message)): ?>
+                <div class="form-message">
+                    <?php echo $success_message; ?>
+                </div>
+                <script>
+                    setTimeout(function(){
+                        window.location.href = "login.php";
+                    }, 5000); // 5 seconds delay
+                </script>
             <?php endif; ?>
         </header>
 
