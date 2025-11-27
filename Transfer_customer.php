@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           <ul>
         <li><a href="dashboard_customer.php">Dashboard</a></li>
         <li><a href="balance_customer.php">Balance</a></li>
-        <li><a href="transfer_customer.php">Transfer</a></li>
+        <li><a href="Transfer_customer.php">Transfer</a></li>
         <li><a href="transaction_customer.php">Transactions</a></li>
         <li><a href="profile_customer.php">Profile</a></li>
         <li><a href="customer_support.php">Need Support</a></li>
@@ -218,5 +218,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <footer>
     <p>&copy; 2025 Zuri Online Banking Management System</p>
 </footer>
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+</script>
+
 </body>
 </html>
