@@ -109,7 +109,7 @@ $transactions = $result->fetch_all(MYSQLI_ASSOC);
             <li><a href="dashboard_customer.php">Dashboard</a></li>
             <li><a href="balance_customer.php">Balance</a></li>
             <li><a href="transfer_customer.php">Transfer</a></li>
-            <li><a href="transaction_customer.php">Transactions</a></li>
+            <li><a href="Transaction_customer.php">Transactions</a></li>
             <li><a href="profile_customer.php">Profile</a></li>
             <hr>
             <li><a href="customer_support.php">Need Support</a></li>
