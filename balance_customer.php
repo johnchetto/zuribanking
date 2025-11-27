@@ -10,7 +10,7 @@ if (!isset($_SESSION['email'])) {
 
 $email = $_SESSION['email'];
 
-// Fetch user info from database
+// Fetch user info
 $stmt = $conn->prepare("SELECT first_name, last_name, account_number, balance FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -20,14 +20,13 @@ if ($result->num_rows === 1) {
     $row = $result->fetch_assoc();
     $user = [
         'full_name' => $row['first_name'] . ' ' . $row['last_name'],
-        'account_number' => $row['account_number'], // changed here
+        'account_number' => $row['account_number'],
         'balance' => $row['balance']
     ];
 } else {
-    // Placeholder if no record found
     $user = [
         'full_name' => 'Test User',
-        'account_number' => 'AC10000001', // updated placeholder
+        'account_number' => 'AC10000001',
         'balance' => 0
     ];
 }
@@ -35,8 +34,7 @@ if ($result->num_rows === 1) {
 $stmt->close();
 ?>
 
-
-<!-- Include sidebar after fetching user -->
+<!-- ✅ LOAD THE NAVIGATION BAR FROM ONE FILE -->
 <?php include __DIR__ . '/sidebar_nav.php'; ?>
 
 <!DOCTYPE html>
@@ -50,34 +48,6 @@ $stmt->close();
 <title>Account Balance - Zuri Bank</title>
 </head>
 <body>
-
-<header class="top-nav">
-    <div class="nav-container">
-        <div class="logo">Zuri Bank</div>
-
-        <button class="menu-btn" id="menuBtn">
-            <i class="fa fa-bars"></i>
-        </button>
-    </div>
-
-    <!-- Navigation menu -->
-    <ul class="nav-links" id="navLinks">
-        <li><a href="dashboard_customer.php">Dashboard</a></li>
-        <li><a href="balance_customer.php">Balance</a></li>
-        <li><a href="transfer_customer.php">Transfer</a></li>
-        <li><a href="Transaction_customer.php">Transactions</a></li>
-        <li><a href="profile_customer.php">Profile</a></li>
-        <li><a href="customer_support.php">Need Support</a></li>
-        <li><a href="deposit_customer.php">Deposit</a></li>
-        <li><a href="logout.php">Logout</a></li>
-    </ul>
-
-    <!-- Notification component should NOT be in the dropdown -->
-    <div class="notification-area">
-        <?php include('notification_component.php'); ?>
-    </div>
-</header>
-
 
 <main>
     <section class="page-header">
@@ -112,33 +82,18 @@ $stmt->close();
 
 <?php $conn->close(); ?>
 <script>
-    // Function to fetch balance from the server
 function fetchBalance() {
-    // Make an AJAX request to get_balance.php
     fetch('get_balance.php')
-        .then(response => response.json()) // Parse JSON response
+        .then(response => response.json())
         .then(data => {
-            // Update the balance in the page
             document.getElementById('current-balance').innerText = `KES ${data.balance.toFixed(2)}`;
-            // Update the last updated time
-            document.getElementById('last-updated-time').innerText = data.last_updated;
         })
-        .catch(err => console.error('Error fetching balance:', err)); // Handle errors
+        .catch(err => console.error('Error fetching balance:', err));
 }
 
-// Call fetchBalance automatically every 5 seconds
 setInterval(fetchBalance, 5000);
-
-// Fetch balance immediately when page loads
 fetchBalance();
-  // Toggle dropdown on mobile
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
-
-    menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("show");
-    });
-
 </script>
+
 </body>
 </html>
