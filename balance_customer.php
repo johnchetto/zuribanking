@@ -34,9 +34,6 @@ if ($result->num_rows === 1) {
 $stmt->close();
 ?>
 
-<!-- ✅ LOAD THE NAVIGATION BAR FROM ONE FILE -->
-<?php include __DIR__ . '/sidebar_nav.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +45,9 @@ $stmt->close();
 <title>Account Balance - Zuri Bank</title>
 </head>
 <body>
+
+<!-- ✅ NAVIGATION SHOULD BE HERE -->
+<?php include __DIR__ . '/sidebar_nav.php'; ?>
 
 <main>
     <section class="page-header">
@@ -81,7 +81,18 @@ $stmt->close();
 </footer>
 
 <?php $conn->close(); ?>
+
+<!-- Mobile dropdown toggle -->
 <script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+if(menuBtn){
+    menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+    });
+}
+
 function fetchBalance() {
     fetch('get_balance.php')
         .then(response => response.json())

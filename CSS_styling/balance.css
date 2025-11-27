@@ -1,282 +1,117 @@
-/* Reset some basics */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+/* ===============================
+   ZURI BANK – ACCOUNT BALANCE PAGE
+   Clean, Modern, Responsive UI
+================================*/
 
+/* ----- Global Styles ----- */
 body {
-    background-color: #f5f7fa;
-    color: #333;
-    line-height: 1.6;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background: #F4F8FB;
+  margin: 0;
+  padding: 0;
+  color: #102A43;
 }
 
-/* Header navigation */
-header nav {
-    background-color: #004080;
-    color: #fff;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    flex-wrap: wrap;
-}
-
-header nav h1 {
-    font-size: 1.5rem;
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-header nav ul li a:hover {
-    color: #ffd700;
-}
-
-/* Main content area */
 main {
-    margin-left: 280px; /* leave space for sidebar */
-    padding: 2rem;
+  margin-left: 260px; /* space for sidebar */
+  padding: 40px 30px;
+}
+
+/* ---------- Page Header ---------- */
+.page-header {
+  margin-bottom: 25px;
 }
 
 .page-header h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: #004080;
+  font-size: 28px;
+  font-weight: 600;
+  color: #0A2342;
+  margin-bottom: 5px;
 }
 
 .page-header p {
-    color: #555;
-    font-size: 1rem;
-    margin-bottom: 2rem;
+  font-size: 15px;
+  color: #5B7083;
 }
 
-/* Balance card styling */
+/* ---------- Account Summary Card ---------- */
 .balance-details-card {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 600px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.06);
+  border-left: 6px solid #0A2342;
 }
 
 .balance-details-card header h3 {
-    font-size: 1.5rem;
-    color: #004080;
-    margin-bottom: 0.5rem;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #0A2342;
 }
 
 .balance-details-card header p {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 1rem;
+  font-size: 15px;
+  color: #5B7083;
 }
 
-/* Account info list */
+/* ----- Account Info Section ----- */
+.account-info {
+  margin-top: 20px;
+}
+
 .account-info dl {
-    display: grid;
-    grid-template-columns: max-content auto;
-    row-gap: 1rem;
-    column-gap: 1rem;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-row-gap: 12px;
 }
 
 .account-info dt {
-    font-weight: 600;
-    color: #555;
+  font-weight: 600;
+  color: #0A2342;
 }
 
 .account-info dd {
-    margin: 0;
-    font-weight: 500;
-    color: #004080;
+  margin: 0;
+  font-weight: 500;
+  color: #1E3A56;
 }
 
-/* Footer styling */
+/* ----- Footer ----- */
 footer {
-    margin-right: 280px; /* align with main content */
-    padding: 1rem 2rem;
-    background-color: #004080;
-    color: #fff;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-/* Responsive adjustments */
-/* Improved responsive design for small gadgets */
-@media screen and (max-width: 600px) {
-
-    /* Navigation */
-    header nav {
-        flex-direction: column;
-        padding: 1rem;
-        text-align: center;
-        gap: 0.7rem;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 0.7rem;
-    }
-
-    /* Main content */
-    main {
-        margin-left: 0;
-        padding: 1rem;
-    }
-
-    .page-header h2 {
-        font-size: 1.4rem;
-        text-align: center;
-    }
-
-    /* Balance card full width */
-    .balance-details-card {
-        width: 100%;
-        margin: 0;
-        padding: 1.2rem;
-        border-radius: 8px;
-    }
-
-    .balance-details-card header h3 {
-        font-size: 1.3rem;
-        text-align: center;
-    }
-
-    /* Make definition list vertical for small screens */
-    .account-info dl {
-        grid-template-columns: 1fr;
-    }
-
-    .account-info dt {
-        color: #333;
-    }
-
-    .account-info dd {
-        color: #004080;
-        margin-bottom: 1rem;
-    }
-
-    /* Footer */
-    footer {
-        position: static; /* prevents overlap */
-        margin-left: 0;
-        width: 100%;
-        padding: 1rem;
-        text-align: center;
-    }
-}
-
-/* =======================
-   ZURI BANK RESPONSIVE NAV
-   ======================= */
-
-/* HEADER BAR */
-.top-nav {
-    background: linear-gradient(90deg, #0A2342, #002855);
-    padding: 12px 20px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 2000;
-}
-
-/* Logo */
-.logo {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* Hamburger (phone only) */
-.menu-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    display: none; /* Hidden on desktop */
-}
-
-/* NAV LINKS (DESKTOP by default) */
-.nav-links {
-    list-style: none;
-    display: flex; 
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.nav-links li a:hover {
-    color: #00d4ff;
-}
-
-/* Notification always visible */
-.notification-area {
-    margin-left: auto;
-    margin-right: 15px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  background: #0A2342;
+  color: #ffffff;
+  font-size: 14px;
 }
 
 /* ===============================
-   MOBILE RESPONSIVE BEHAVIOR
-   =============================== */
-@media (max-width: 768px) {
+        RESPONSIVE DESIGN
+================================*/
 
-    /* Show hamburger on mobile */
-    .menu-btn {
-        display: block;
-    }
+@media (max-width: 992px) {
+  main {
+    margin-left: 0; /* sidebar collapses */
+  }
 
-    /* Hide nav links initially on mobile */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        background: #002244;
-        width: 100%;
-        padding: 15px 0;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        z-index: 1000;
-        text-align: left;
-        border-top: 1px solid rgba(255,255,255,0.2);
-    }
+  .balance-details-card {
+    padding: 25px;
+  }
 
-    /* Show dropdown when toggled by JS */
-    .nav-links.show {
-        display: flex;
-    }
+  .account-info dl {
+    grid-template-columns: 1fr;
+  }
+}
 
-    .nav-links li {
-        padding: 12px 20px;
-    }
+@media (max-width: 600px) {
+  .page-header h2 {
+    font-size: 22px;
+  }
 
-    .notification-area {
-        position: absolute;
-        right: 20px;
-        top: 12px;
-    }
+  .balance-details-card {
+    border-left-width: 4px;
+  }
 }
