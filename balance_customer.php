@@ -46,7 +46,6 @@ $stmt->close();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Account Balance Overview for Zuri Online Banking.">
 <link rel="stylesheet" href="CSS_styling/balance.css">
-<link rel="stylesheet" href="CSS_styling/side_bar.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <title>Account Balance - Zuri Bank</title>
 </head>
