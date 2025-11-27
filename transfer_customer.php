@@ -169,18 +169,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <header>
     <nav>
         <h1>Zuri Bank</h1>
-          <ul>
-        <li><a href="dashboard_customer.php">Dashboard</a></li>
-        <li><a href="balance_customer.php">Balance</a></li>
-        <li><a href="Transfer_customer.php">Transfer</a></li>
-        <li><a href="transaction_customer.php">Transactions</a></li>
-        <li><a href="profile_customer.php">Profile</a></li>
-        <li><a href="customer_support.php">Need Support</a></li>
-        <li><a href="deposit_customer.php">Deposit</a></li>
-        <li><a href="deposit_api.php">Sandbox Deposit</a></li>
-        <li><a href="logout.php">Logout</a></li>
-        <?php include('notification_component.php'); ?>
-    </ul>
+       <ul class="nav-links">
+            <li><a href="dashboard_customer.php">Dashboard</a></li>
+            <li><a href="balance_customer.php">Balance</a></li>
+            <li><a href="transfer_customer.php">Transfer</a></li>
+            <li><a href="transaction_customer.php" >Transactions</a></li>
+            <li><a href="profile_customer.php">Profile</a></li>
+            <li><a href="customer_support.php">Need Support</a></li>
+            <li><a href="deposit_customer.php">Deposit</a></li>
+            <li><a href="deposit_api.php">Sandbox Deposit</a></li>
+            <li><a href="logout.php">Logout</a></li>
+            <?php include('notification_component.php'); ?>
+        </ul>
     </nav>
 </header>
 
