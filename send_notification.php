@@ -31,5 +31,3 @@ function sendNotification($conn, $title, $message, $type = 'general', $role_targ
 }
 ?>
 
-}
-?>
