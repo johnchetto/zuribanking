@@ -51,29 +51,33 @@ $stmt->close();
 </head>
 <body>
 
-<header>
-                <nav aria-label="Main Dashboard Navigation">
-                    <h1> </h1>
-                    <!-- MOBILE MENU BUTTON -->
-            <button class="mobile-menu-btn" aria-label="Open Menu">
-                <i class="fa fa-bars"></i>
-            </button>
+<header class="top-nav">
+    <div class="nav-container">
+        <div class="logo">Zuri Bank</div>
 
-            <!-- NAV MENU -->
-            <ul class="sidebar-menu">
-                <li><a href="dashboard_customer.php">Dashboard</a></li>
-                <li><a href="balance_customer.php">Balance</a></li>
-                <li><a href="transfer_customer.php">Transfer</a></li>
-                <li><a href="Transaction_customer.php">Transactions</a></li>
-                <li><a href="profile_customer.php">Profile</a></li>
-                <li><a href="customer_support.php">Need Support</a></li>
-                <li><a href="deposit_customer.php">Deposit</a></li>
-                <li><a href="logout.php">Logout</a></li>
-                <br>
-                <?php include('notification_component.php'); ?>
-            </ul>
-    </nav>
+        <button class="menu-btn" id="menuBtn">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- Navigation menu -->
+    <ul class="nav-links" id="navLinks">
+        <li><a href="dashboard_customer.php">Dashboard</a></li>
+        <li><a href="balance_customer.php">Balance</a></li>
+        <li><a href="transfer_customer.php">Transfer</a></li>
+        <li><a href="Transaction_customer.php">Transactions</a></li>
+        <li><a href="profile_customer.php">Profile</a></li>
+        <li><a href="customer_support.php">Need Support</a></li>
+        <li><a href="deposit_customer.php">Deposit</a></li>
+        <li><a href="logout.php">Logout</a></li>
+    </ul>
+
+    <!-- Notification component should NOT be in the dropdown -->
+    <div class="notification-area">
+        <?php include('notification_component.php'); ?>
+    </div>
 </header>
+
 
 <main>
     <section class="page-header">
@@ -127,14 +131,13 @@ setInterval(fetchBalance, 5000);
 
 // Fetch balance immediately when page loads
 fetchBalance();
+  // Toggle dropdown on mobile
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
 
-    const btn = document.querySelector(".mobile-menu-btn");
-    const menu = document.querySelector(".sidebar-menu");
-
-    btn.addEventListener("click", () => {
-        menu.classList.toggle("open");
+    menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
     });
-
 
 </script>
 </body>
