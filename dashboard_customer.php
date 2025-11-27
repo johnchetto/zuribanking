@@ -277,6 +277,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+// --- Sidebar Toggle Fix for Mobile ---
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.querySelector(".menu-toggle");
+const closeBtn = document.querySelector(".sidebar .close-btn");
+
+// Open sidebar
+menuToggle.addEventListener("click", () => {
+    sidebar.style.width = "230px";
+});
+
+// Close sidebar
+closeBtn.addEventListener("click", () => {
+    sidebar.style.width = "0";
+});
+
+// Close sidebar if clicking outside on mobile
+window.addEventListener("click", (e) => {
+    if (window.innerWidth <= 900 && sidebar.style.width === "230px") {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.style.width = "0";
+        }
+    }
+});
 
 </script>
 
