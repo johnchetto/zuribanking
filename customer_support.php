@@ -1,211 +1,248 @@
 <?php
 session_start();
-require_once "db_connect.php"; // Database connection
+require_once __DIR__ . '/db_connect.php';
 
-// Get logged-in customer ID
-$customer_id = $_SESSION['user_id'] ?? null;
-if (!$customer_id) {
+// Check if user is logged in
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $first_name = trim($_POST["first_name"] ?? "");
-    $last_name  = trim($_POST["last_name"] ?? "");
-    $email      = trim($_POST["email"] ?? "");
-    $subject    = trim($_POST["subject"] ?? "");
-    $message    = trim($_POST["message"] ?? "");
+$email = $_SESSION['email'];
 
-    if (empty($first_name) || empty($last_name) || empty($email) || empty($subject) || empty($message)) {
-        echo "<script>alert('All fields are required!');</script>";
-    } else {
-        // Updated table name
-        $stmt = $conn->prepare("INSERT INTO customer_support_new 
-            (customer_id, first_name, last_name, email, subject, message, created_at) 
-            VALUES (?, ?, ?, ?, ?, ?, NOW())");
-        $stmt->bind_param("isssss", $customer_id, $first_name, $last_name, $email, $subject, $message);
-        if ($stmt->execute()) {
-            echo "<script>alert('Your message has been sent successfully! Our support team will reach out soon.');</script>";
-        } else {
-            echo "<script>alert('Error submitting your request. Please try again later.');</script>";
-        }
-        $stmt->close();
-    }
-}
-
-// Fetch all complaints of this customer with admin responses
-$stmt = $conn->prepare("SELECT subject, message, admin_response, status, created_at, responded_at 
-                        FROM customer_support_new 
-                        WHERE customer_id = ? 
-                        ORDER BY created_at DESC");
-$stmt->bind_param("i", $customer_id);
+// Fetch user details
+$stmt = $conn->prepare("SELECT first_name, last_name, account_number, balance FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
-$complaints = $result->fetch_all(MYSQLI_ASSOC);
+
+if ($result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+    $user = [
+        'full_name' => $row['first_name'] . ' ' . $row['last_name'],
+        'account_number' => $row['account_number'],
+        'balance' => $row['balance']
+    ];
+} else {
+    $user = [
+        'full_name' => 'Test User',
+        'account_number' => 'AC10000001',
+        'balance' => 0
+    ];
+}
+
 $stmt->close();
 ?>
-
-<?php include 'sidebar_nav.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Support - Zuri Bank</title>
-<link rel="stylesheet" href="CSS_styling/customer_support.css">
-<link rel="stylesheet" href="CSS_styling/side_bar.css">
+<title>Account Balance - Zuri Bank</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    /* ===== Global Styles ===== */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #F4F7FA;
+    }
+
+    /* ===== Top Navbar ===== */
+    .top-nav {
+        width: 100%;
+        background: #0A2342;
+        color: #fff;
+        padding: 15px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
+
+    .top-nav .logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .top-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+    }
+
+    .top-nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .top-nav ul li a:hover {
+        color: #4FC3F7;
+    }
+
+    /* Mobile Menu Button */
+    .menu-btn {
+        display: none;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    /* Mobile Menu */
+    @media(max-width: 768px) {
+        .top-nav ul {
+            display: none;
+            flex-direction: column;
+            background: #0A2342;
+            width: 100%;
+            padding: 20px 0;
+            position: absolute;
+            top: 60px;
+            left: 0;
+        }
+
+        .top-nav ul.show {
+            display: flex;
+        }
+
+        .menu-btn {
+            display: block;
+        }
+    }
+
+    /* ===== Page Content ===== */
+    main {
+        margin-top: 90px;
+        padding: 20px;
+    }
+
+    .page-header h2 {
+        color: #0A2342;
+        margin-bottom: 5px;
+    }
+
+    .balance-details-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .balance-details-card header h3 {
+        margin: 0 0 10px;
+    }
+
+    dl {
+        margin: 0;
+    }
+
+    dt {
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    dd {
+        margin-left: 0;
+        color: #2C3E50;
+        font-size: 18px;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 15px;
+        color: #555;
+    }
+</style>
 </head>
+
 <body>
-         
 
-<header>
-    <nav aria-label="Customer Navigation">
-        <h1>Zuri Bank - Customer Portal</h1>
-        <ul>
-            <li><a href="dashboard_customer.php">Dashboard</a></li>
-            <li><a href="balance_customer.php">Balance</a></li>
-            <li><a href="transfer_customer.php">Transfer</a></li>
-            <li><a href="Transaction_customer.php">Transactions</a></li>
-            <li><a href="profile_customer.php">Profile</a></li>
-            <li><a href="customer_support.php" class="active">Need Support</a></li>
-            <li><a href="deposit_customer.php">Deposit</a></li>
-            <li><a href="deposit_api.php">sanbox deposit</a></li>
-            <li><a href="logout.php">Logout</a></li>
-     
-        </ul>
-    </nav>
+<!-- ===== TOP NAVBAR ===== -->
+<nav class="top-nav">
+    <span class="logo">Zuri Bank</span>
 
-</header>
+    <i class="fa fa-bars menu-btn" id="menuBtn"></i>
 
+   <ul id="navLinks">
+    <li><a href="dashboard_customer.php">Dashboard</a></li>
+    <li><a href="balance_customer.php">Balance</a></li>
+    <li><a href="transfer_customer.php">Transfer</a></li>
+    <li><a href="Transaction_customer.php">Transactions</a></li>
+    <li><a href="profile_customer.php">Profile</a></li>
+    <li><a href="customer_support.php">Need Support</a></li>
+    <li><a href="deposit_customer.php">Deposit</a></li>
+    <li><a href="deposit_api.php">Sandbox Deposit</a></li>
+    <li><a href="logout.php">Logout</a></li>
+</ul>
+
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
 <main>
-    <!-- Page Header -->
     <section class="page-header">
-        <h2>Customer Support & Help Center</h2>
-        <p>Submit a complaint or view responses from our support team.</p>
+        <h2>Account Balance Overview</h2>
+        <p>View your current account details and available funds.</p>
     </section>
 
-    <!-- Support Form -->
-    <section class="support-form-container">
-        <h3>Submit a New Complaint</h3>
-        <form method="POST" action="">
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
-            </div>
+    <article class="balance-details-card">
+        <header>
+            <h3>Account Summary</h3>
+            <p>Welcome, <strong><?php echo htmlspecialchars($user['full_name']); ?></strong></p>
+        </header>
 
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
-            </div>
+        <section class="account-info">
+            <dl>
+                <dt>Account Number:</dt>
+                <dd><?php echo htmlspecialchars($user['account_number']); ?></dd>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your registered email" required>
-            </div>
+                <dt>Available Balance:</dt>
+                <dd id="current-balance">KES <?php echo number_format($user['balance'], 2); ?></dd>
 
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" placeholder="Enter your complaint" required>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="6" placeholder="Describe your issue..." required></textarea>
-            </div>
-
-            <button type="submit">Submit Complaint</button>
-        </form>
-    </section>
-
-    <!-- Customer Complaint List -->
-    <section class="complaint-list">
-        <h3>Your Complaints & Responses</h3>
-        <?php if (count($complaints) === 0): ?>
-            <p>No complaints submitted yet.</p>
-        <?php else: ?>
-            <?php foreach($complaints as $complaint): ?>
-                <div class="complaint-item">
-                    <p><strong>Subject:</strong> <?= htmlspecialchars($complaint['subject']) ?></p>
-                    <p><strong>Message:</strong> <?= htmlspecialchars($complaint['message']) ?></p>
-                    <?php if ($complaint['status'] === 'answered'): ?>
-                        <p><strong>Admin Response:</strong> <?= htmlspecialchars($complaint['admin_response']) ?></p>
-                        <p><em>Responded on: <?= $complaint['responded_at'] ?></em></p>
-                    <?php else: ?>
-                        <p><em>Status: Pending</em></p>
-                    <?php endif; ?>
-                    <hr>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </section>
-
-    <!-- Contact Info -->
-    <section class="direct-contact">
-        <h3>Other Ways to Reach Us </h3>
-        <ul>
-         <li><strong>Phone:</strong> <a href="tel:+254791575532">+254 791 575 532 (WhatsApp)</a></li>
-       
-        </ul>
-    </section>
+                <dt>Last Updated:</dt>
+                <dd id="last-updated"><?php echo date("d M Y, h:i A"); ?></dd>
+            </dl>
+        </section>
+    </article>
 </main>
 
 <footer>
-    <p>&copy; 2025 Zuri Online Banking Management System | Customer Support</p>
+    <p>&copy; 2025 Zuri Online Banking System</p>
 </footer>
+
 <script>
-    // customer_support.js
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("supportForm");
-  const responseText = document.getElementById("form-response");
+// ===== MOBILE MENU =====
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const data = {
-      fullname: form.fullname.value.trim(),
-      email: form.email.value.trim(),
-      subject: form.subject.value.trim(),
-      message: form.message.value.trim(),
-    };
-
-    // Basic validation
-    if (!data.fullname || !data.email || !data.subject || !data.message) {
-      responseText.textContent = "Please fill in all fields.";
-      responseText.style.color = "red";
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/support", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-
-      if (res.ok) {
-        responseText.textContent = result.message;
-        responseText.style.color = "green";
-        form.reset();
-      } else {
-        responseText.textContent = result.message || "Submission failed. Try again.";
-        responseText.style.color = "red";
-      }
-    } catch (err) {
-      console.error("Error:", err);
-      responseText.textContent = "An error occurred. Please try again later.";
-      responseText.style.color = "red";
-    }
-  });
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
 });
 
+// ===== AUTO-BALANCE REFRESH =====
+function fetchBalance() {
+    fetch('get_balance.php')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('current-balance').innerText =
+                `KES ${parseFloat(data.balance).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        });
+}
+
+setInterval(fetchBalance, 5000);
+fetchBalance();
 </script>
+
 </body>
 </html>
-<?php
-$conn->close();
-?>
+
